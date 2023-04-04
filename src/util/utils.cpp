@@ -189,35 +189,78 @@ long long utils::get_current_system_time_s()
 	return std::chrono::duration_cast<std::chrono::seconds>(duration_since_epoch).count();
 }
 
-bool utils::python::OnStartBin(int batch_counter, int bin_index, std::vector<uint8_t>& data, std::vector<uint8_t>& out_data)
+engine* engine::s_Instance = nullptr;
+std::mutex engine::s_Mutex;
+
+engine* engine::getInstance()
+{
+	if (s_Instance == nullptr) {
+		std::unique_lock<std::mutex> lock(s_Mutex);	//lock
+		if (s_Instance == nullptr) {
+			s_Instance = new engine();
+		}
+		//unlock
+	}
+	return s_Instance;
+}
+void engine::deleteInstance()
+{
+	std::unique_lock<std::mutex> lock(s_Mutex);	//lock
+	if (s_Instance != nullptr) {
+		delete s_Instance;
+		s_Instance = nullptr;
+	}
+}
+
+engine::engine()
+	:pModule(NULL)
+	,pFunc(NULL)
 {
 	if (PyImport_AppendInittab("burner", PyInitCppInterface) == -1) {
 		logger->AddLog("Error: could not extend in-built modules table\n");
-		return false;
+		return;
 	}
 	Py_Initialize();
+
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append('./')");
 
-	PyObject* pModule = NULL;
 	pModule = PyImport_ImportModule("burner");
 	if (pModule == NULL) {
 		logger->AddLog("Failed to load Python Module: burner\n");
-		return false;
+		return;
 	}
 
 	pModule = PyImport_ImportModule("intercept");
 	if (pModule == NULL) {
 		logger->AddLog("Failed to load Python Module: intercept\n");
-		return false;
+		return;
 	}
 
-	PyObject* pFunc = PyObject_GetAttrString(pModule, "on_start_bin");
+	pFunc = PyObject_GetAttrString(pModule, "on_start_bin");
 	if (pFunc == NULL) {
 		logger->AddLog("Failed to load Python Function: on_start_bin\n");
-		return false;
+		return;
 	}
+}
 
+engine::~engine()
+{
+	Py_Finalize();
+}
+
+engine::engine(const engine& signal)
+	:pModule(NULL)
+	, pFunc(NULL)
+{
+}
+const engine& const engine::operator=(const engine& signal)
+{
+	return *this;
+}
+
+bool engine::OnStartBin(int batch_counter, int bin_index, std::vector<uint8_t>& data, std::vector<uint8_t>& out_data)
+{
 	PyObject* data0 = PyBytes_FromStringAndSize((const char*)data.data(), data.size());
 
 	PyObject* cons_args = Py_BuildValue("(iiO)", batch_counter, bin_index, data0);
@@ -241,10 +284,11 @@ bool utils::python::OnStartBin(int batch_counter, int bin_index, std::vector<uin
 
 	char* data_after = PyBytes_AsString(data_);
 	Py_ssize_t out_size = PyBytes_GET_SIZE(data_);
-	Py_Finalize();
 
 	out_data.resize(out_size);
 	memcpy(out_data.data(), data_after, out_size);
+
+	//Py_DECREF(obj);
 
 	return true;
 }

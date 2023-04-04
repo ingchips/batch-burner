@@ -3,7 +3,32 @@
 #include <string>
 #include <codecvt>
 #include <filesystem>
+#include <mutex>
 #include "serial/serial.h"
+#include "Python.h"
+
+class engine
+{
+public:
+	static engine* getInstance();
+	static void deleteInstance();
+
+	bool OnStartBin(int batch_counter, int bin_index, std::vector<uint8_t>& data, std::vector<uint8_t>& out_data);
+
+
+private:
+	engine();
+	~engine();
+
+	engine(const engine& signal);
+	const engine& operator=(const engine& signal);
+
+	static engine* s_Instance;
+	static std::mutex s_Mutex;
+
+	PyObject* pModule;
+	PyObject* pFunc;
+};
 
 namespace utils {
 
@@ -25,9 +50,4 @@ namespace utils {
 
 	long long get_current_system_time_ms();
 	long long get_current_system_time_s();
-
-	namespace python 
-	{
-		bool OnStartBin(int batch_counter, int bin_index, std::vector<uint8_t>& data, std::vector<uint8_t>& out_data);
-	}
 }
