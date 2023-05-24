@@ -177,23 +177,27 @@ bool burn::wait_handshaking3(::serial::Serial* ser, int timeout, std::string hel
 	return false;
 }
 
-
-static std::mutex s_mutex;
-
 bool burn::OnStartBin(int batchCounter, int binIndex, std::vector<uint8_t>& data, std::vector<uint8_t>& out_data)
 {
 	auto engine = engine::getInstance();
 
 	bool result = false;
+
+	// Attaching a PythonThreadState to C thread, then hold the GIL
+	PyGILState_STATE gstate = PyGILState_Ensure();	
+
 	try
 	{
-		std::unique_lock<std::mutex> lock(s_mutex);
 		result = engine->OnStartBin(batchCounter, binIndex, data, out_data);
 	}
 	catch (std::exception e)
 	{
 		logger->AddLog("%s\r\n", e.what());
 	}
+
+	// release GIL
+	PyGILState_Release(gstate);
+
 	return result;
 }
 

@@ -77,6 +77,8 @@ static void init_text_editor()
 
 static bool main_init(int argc, char* argv[])
 {
+
+
 	// Enable Dock
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
@@ -101,6 +103,18 @@ static bool main_init(int argc, char* argv[])
 	pool = new ThreadPool(25);
 
 	init_text_editor();
+
+	// Init CPython
+	if (argc > 1)
+	{
+		engine::setPythonHome(argv[1]);
+		auto engine = engine::getInstance();
+	}
+	else
+	{
+		auto engine = engine::getInstance();
+	}
+	
 
     return true;
 }

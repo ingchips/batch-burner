@@ -72,9 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectDir)glfw\include\;$(ProjectDir)src\;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)glfw\include\;$(ProjectDir)src\;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)glfw\include\;$(ProjectDir)src\;$(IncludePath)</IncludePath>
@@ -94,8 +98,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)python\lib;$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>python310.lib;glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,8 +118,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)python\lib;$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>python310.lib;glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,8 +134,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)python\lib;$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>python310.lib;glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,14 +154,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)python\lib;$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>python310.lib;glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\burn.cpp" />
     <ClCompile Include="src\burner.cpp" />
-    <ClCompile Include="src\imgui\backends\imgui_impl_dx12.cpp" />
     <ClCompile Include="src\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\imgui\backends\imgui_impl_win32.cpp" />

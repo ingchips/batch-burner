@@ -7,9 +7,12 @@
 #include "serial/serial.h"
 #include "Python.h"
 
+#define DEFAULT_PYTHON_HOME "C:/Program Files/Python310"
+
 class engine
 {
 public:
+	static void setPythonHome(std::string python_home);
 	static engine* getInstance();
 	static void deleteInstance();
 
@@ -23,6 +26,7 @@ private:
 	engine(const engine& signal);
 	const engine& operator=(const engine& signal);
 
+	static std::string s_PythonHome;
 	static engine* s_Instance;
 	static std::mutex s_Mutex;
 

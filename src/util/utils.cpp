@@ -189,8 +189,15 @@ long long utils::get_current_system_time_s()
 	return std::chrono::duration_cast<std::chrono::seconds>(duration_since_epoch).count();
 }
 
+std::string engine::s_PythonHome = "";
 engine* engine::s_Instance = nullptr;
 std::mutex engine::s_Mutex;
+
+
+void engine::setPythonHome(std::string python_home)
+{
+	s_PythonHome = python_home;
+}
 
 engine* engine::getInstance()
 {
@@ -212,6 +219,7 @@ void engine::deleteInstance()
 	}
 }
 
+
 engine::engine()
 	:pModule(NULL)
 	,pFunc(NULL)
@@ -220,10 +228,22 @@ engine::engine()
 		logger->AddLog("Error: could not extend in-built modules table\n");
 		return;
 	}
-	Py_Initialize();
+
+	if (s_PythonHome == "")
+	{
+		s_PythonHome = std::string(DEFAULT_PYTHON_HOME);
+	}
+
+	size_t size = 0;
+	PyConfig config;
+	PyConfig_InitPythonConfig(&config);
+	config.home = Py_DecodeLocale(s_PythonHome.c_str(), &size);
+	Py_InitializeFromConfig(&config);
+	PyConfig_Clear(&config);
 
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append('./')");
+
 
 	pModule = PyImport_ImportModule("burner");
 	if (pModule == NULL) {
@@ -242,6 +262,8 @@ engine::engine()
 		logger->AddLog("Failed to load Python Function: on_start_bin\n");
 		return;
 	}
+
+	PyEval_SaveThread();	//Release GIL
 }
 
 engine::~engine()
@@ -264,13 +286,15 @@ bool engine::OnStartBin(int batch_counter, int bin_index, std::vector<uint8_t>& 
 	PyObject* data0 = PyBytes_FromStringAndSize((const char*)data.data(), data.size());
 
 	PyObject* cons_args = Py_BuildValue("(iiO)", batch_counter, bin_index, data0);
+	
 
 	PyObject* obj = PyObject_CallObject(pFunc, cons_args);
 	if (obj == NULL) {
 		logger->AddLog("Failed to call Python Function: on_start_bin\n");
 		return false;
 	}
-	//Py_DECREF(cons_args);
+
+	Py_DECREF(cons_args);
 
 	Py_ssize_t size_tuple = PyTuple_Size(obj);
 
@@ -288,7 +312,8 @@ bool engine::OnStartBin(int batch_counter, int bin_index, std::vector<uint8_t>& 
 	out_data.resize(out_size);
 	memcpy(out_data.data(), data_after, out_size);
 
-	//Py_DECREF(obj);
+	Py_DECREF(obj);
+	Py_DECREF(data0);
 
 	return true;
 }

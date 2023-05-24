@@ -37,9 +37,6 @@
     <ClCompile Include="src\imgui\backends\imgui_impl_win32.cpp">
       <Filter>src\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\imgui\backends\imgui_impl_dx12.cpp">
-      <Filter>src\imgui</Filter>
-    </ClCompile>
     <ClCompile Include="src\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>src\imgui</Filter>
     </ClCompile>
