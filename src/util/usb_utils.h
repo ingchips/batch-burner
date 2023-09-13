@@ -19,6 +19,8 @@ namespace usb
 
 	bool is_ingchips_keyboard_device(libusb_device* device);
 
+	libusb_device* find_device(libusb_context* libusb_ctx, uint16_t vid, uint16_t pid, uint8_t address, uint8_t bus, uint8_t portNumber);
+	libusb_device* find_device(libusb_context* libusb_ctx, const char* deviceName);
 	DevMap enumrate_device_map(libusb_context* libusb_ctx);
 
 	void release_device_map(DevMap& device_map);
