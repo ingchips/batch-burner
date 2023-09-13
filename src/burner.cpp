@@ -397,7 +397,7 @@ static void BurnContextInitPortContext()
 		if (!port.enable || !port.IsOpen())
 			continue;
 
-		PortInfo portInfo;
+		::PortInfo portInfo;
 		strcpy(portInfo.portName, port.portName);
 		portInfo.baud = port.baud;
 		portInfo.ser = port.ser;
