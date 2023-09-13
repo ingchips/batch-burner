@@ -1071,3 +1071,63 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 {
     return main_(__argc, __argv);
 }
+
+#include "util/usb_utils.h"
+#include "dev.h"
+
+void testUSB()
+{
+	usb::init();
+
+	auto devmap = usb::enumrate_device_map(NULL);
+
+	for (const auto& dev : devmap)
+	{
+		printf("%s\n", dev.first.c_str());
+	}
+
+	Device* dev = DeviceFactory::createUSBDevice(devmap.begin()->first.c_str(), devmap.begin()->second);
+
+	uint8_t buf[64] = { 0x12, 0x34, 0x56, 0x78 };
+	dev->open();
+	dev->write(buf, sizeof(buf));
+	size_t len = dev->read(buf, sizeof(buf));
+	buf[5] = '\0';
+	printf("%s\n", buf);
+	dev->close();
+	delete dev;
+	usb::release_device_map(devmap);
+	usb::exit();
+}
+
+void testSerial()
+{
+	std::vector<serial::PortInfo> a = list_ports();
+
+	for (auto& port : a)
+	{
+		printf("==");
+		printf("%s\n", port.description.c_str());
+		printf("%s\n", port.hardware_id.c_str());
+		printf("%s\n", port.port.c_str());
+	}
+
+
+	Device* dev = DeviceFactory::createSerialDevice("COM9");
+	uint8_t readbuf[64] = { 0 };
+	uint8_t buf[] = "AT+NAME?\r\n";
+	dev->open();
+	size_t i = dev->write(buf, sizeof(buf));
+	size_t len = dev->read(readbuf, sizeof(readbuf));
+	readbuf[len] = '\0';
+	printf("%s\n", readbuf);
+	dev->close();
+	delete dev;
+}
+
+int main()
+{
+	return main_(__argc, __argv);
+
+	//testSerial();
+}

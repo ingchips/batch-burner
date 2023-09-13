@@ -123,12 +123,44 @@ std::string utils::readFileText(std::filesystem::path path)
 	return ss.str();
 }
 
+
+uint8_t utils::htoi_4(const char c)
+{
+	if ('0' <= c && c <= '9') return c - '0';
+	if ('A' <= c && c <= 'F') return c - 'A' + 10;
+	if ('a' <= c && c <= 'f') return c - 'a' + 10;
+	return 0;
+}
+uint8_t utils::htoi_8(const char* c)
+{
+	return (htoi_4(c[0]) << 4) | htoi_4(c[1]);
+}
+uint16_t utils::htoi_16(const char* c)
+{
+	return (htoi_8(c) << 8) | htoi_8(c + 2);
+}
+uint32_t utils::htoi_32(const char* c)
+{
+	return (htoi_8(c) << 24) | (htoi_8(c + 2) << 16) | (htoi_8(c + 4) << 8) | htoi_8(c + 6);
+}
+
 std::string utils::dec2hex(uint32_t i)
 {
 	std::ostringstream ss;
 	ss << "0x" << std::hex << i;
 	return ss.str();
 }
+
+
+void utils::printf_hexdump(uint8_t* data, uint16_t size)
+{
+	std::cout << std::hex;
+	for (uint16_t i = 0; i < size; ++i) {
+		std::cout << (int)data[i];
+	}
+	std::cout << std::dec << std::endl;
+}
+
 
 std::wstring utils::utf8_to_wstr(const std::string& src)
 {

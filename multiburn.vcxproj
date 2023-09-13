@@ -92,14 +92,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)libusb\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform);$(ProjectDir)libusb\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,16 +110,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)libusb\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform);$(ProjectDir)libusb\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,14 +128,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)libusb\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform);$(ProjectDir)libusb\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,21 +146,22 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)python\include;$(ProjectDir)glfw\include;$(ProjectDir)wjwwood\include;$(ProjectDir)libusb\include;$(ProjectDir)src\imgui;$(ProjectDir)src\imgui\backends;$(ProjectDir)src\imgui\extensions;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)glfw\lib\$(Platform);$(ProjectDir)wjwwood\lib\$(Configuration)\$(Platform);$(ProjectDir)python\lib\$(Platform);$(ProjectDir)libusb\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;shell32.lib;d3d12.lib;d3dcompiler.lib;dxgi.lib;legacy_stdio_definitions.lib;serial.lib;libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\burn.cpp" />
     <ClCompile Include="src\burner.cpp" />
+    <ClCompile Include="src\dev.cpp" />
     <ClCompile Include="src\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\imgui\backends\imgui_impl_win32.cpp" />
@@ -175,12 +176,16 @@
     <ClCompile Include="src\ingBurner.cpp" />
     <ClCompile Include="src\util\ini.c" />
     <ClCompile Include="src\util\INIReader.cpp" />
+    <ClCompile Include="src\util\usb_utils.cpp" />
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\burn.h" />
+    <ClInclude Include="src\dev.h" />
     <ClInclude Include="src\ingBurner.h" />
+    <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\util\thread_pool.h" />
+    <ClInclude Include="src\util\usb_utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

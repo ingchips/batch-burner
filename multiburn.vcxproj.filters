@@ -70,6 +70,12 @@
     <ClCompile Include="src\imgui\extensions\TextEditor.cpp">
       <Filter>src\imgui\extensions</Filter>
     </ClCompile>
+    <ClCompile Include="src\dev.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\usb_utils.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ingBurner.h">
@@ -80,6 +86,15 @@
     </ClInclude>
     <ClInclude Include="src\burn.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dev.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\usb_utils.h">
+      <Filter>src\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

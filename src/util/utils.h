@@ -42,7 +42,13 @@ namespace utils {
 	void readFileData(std::filesystem::path path, void* out_data);
 	std::string readFileText(std::filesystem::path path);
 
+	uint8_t htoi_4(const char c);
+	uint8_t htoi_8(const char* c);
+	uint16_t htoi_16(const char* c);
+	uint32_t htoi_32(const char* c);
+
 	std::string dec2hex(uint32_t i);
+	void printf_hexdump(uint8_t* data, uint16_t size);
 
 	std::wstring utf8_to_wstr(const std::string& src);
 	std::string wstr_to_utf8(const std::wstring& src);
