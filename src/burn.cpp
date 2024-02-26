@@ -642,7 +642,7 @@ bool burn::ing916::BurnRun0(BurnContext* ctx, int index)
 
 		ctx->logger->AddLog("[%s]downloading %s %d\n", port.portName, binInfo.bin_name, binInfo.load_address);
 
-		std::vector<uint8_t>& realData = binInfo.bin_data;
+		std::vector<uint8_t> realData = binInfo.bin_data;
 		if (ctx->burner->options.UseScript) {
 			std::vector<uint8_t> bytes;
 			if (!OnStartBin(port.counter, port.current_bin_index, binInfo.bin_data, bytes)) {
