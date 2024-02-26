@@ -221,6 +221,25 @@ long long utils::get_current_system_time_s()
 	return std::chrono::duration_cast<std::chrono::seconds>(duration_since_epoch).count();
 }
 
+void utils::logToFile(const std::string& message, const std::string& filename) 
+{
+	std::time_t currentTime = std::time(nullptr);
+	std::tm* timeinfo = std::localtime(&currentTime);
+
+	std::ofstream logfile(filename, std::ios::app);  // ×·¼ÓÄ£Ê½
+	if (logfile.is_open()) {
+		char buffer[80];
+		strftime(buffer, sizeof(buffer), "[%Y-%m-%d %H:%M:%S] ", timeinfo);
+
+		logfile << buffer << message << std::endl;
+
+		logfile.close();
+	}
+	else {
+		std::cerr << "Error opening the log file." << std::endl;
+	}
+}
+
 std::string engine::s_PythonHome = "";
 engine* engine::s_Instance = nullptr;
 std::mutex engine::s_Mutex;

@@ -1,5 +1,8 @@
 #include "ImConsole.h"
 
+#include "util/utils.h"
+#include <sstream>
+
 ImLogger::ImLogger()
 {
     AutoScroll = true;
@@ -20,9 +23,14 @@ void ImLogger::AddLog(const char* fmt, ...) IM_FMTARGS(2)
     va_start(args, fmt);
     Buf.appendfv(fmt, args);
     va_end(args);
-    for (int new_size = Buf.size(); old_size < new_size; old_size++)
+    std::stringstream ss;
+    for (int new_size = Buf.size(); old_size < new_size; old_size++) {
+        ss << Buf[old_size];
         if (Buf[old_size] == '\n')
             LineOffsets.push_back(old_size + 1);
+    }
+
+    utils::logToFile(ss.str());
 }
 
 void ImLogger::Draw(const char* title, bool* p_open)

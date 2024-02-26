@@ -60,4 +60,6 @@ namespace utils {
 
 	long long get_current_system_time_ms();
 	long long get_current_system_time_s();
+
+	void logToFile(const std::string& message, const std::string& filename = "log.txt");
 }
